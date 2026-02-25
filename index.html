@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TraceGraph — Design Partner Program</title>
+
+  <meta name="description" content="Know when your production AI changes — and when runtime behavior deviates from approved decisions." />
+  <meta property="og:title" content="TraceGraph — Design Partner Program" />
+  <meta property="og:description" content="Know when your production AI changes — and when runtime behavior deviates from approved decisions." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg0:#070A12;
+      --bg1:#0B1024;
+      --text:#EAF0FF;
+      --muted: rgba(234,240,255,.72);
+      --muted2: rgba(234,240,255,.58);
+      --brand:#6D5EF9;
+      --brand2:#34D3FF;
+      --shadow: 0 24px 80px rgba(0,0,0,.55);
+      --radius: 18px;
+      --radius2: 14px;
+      --max: 980px;
+    }
+
+    *{box-sizing:border-box}
+    html{ scroll-behavior:smooth; }
+
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 600px at 20% 15%, rgba(109,94,249,.35), transparent 55%),
+        radial-gradient(900px 500px at 80% 25%, rgba(52,211,255,.25), transparent 55%),
+        radial-gradient(900px 500px at 50% 90%, rgba(45,227,138,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    a{color:inherit}
+    .wrap{
+      max-width: var(--max);
+      margin:0 auto;
+      padding: 40px 20px 70px;
+    }
+
+    /* top bar */
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom: 22px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+    }
+    .logo{
+      width:36px;height:36px;border-radius:12px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), rgba(255,255,255,0) 55%),
+        linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 10px 40px rgba(109,94,249,.22);
+      border: 1px solid rgba(255,255,255,.16);
+    }
+    .brand .name{
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+    .pill{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+    .dot{
+      width:7px;height:7px;border-radius:999px;
+      background: rgba(255,255,255,.35);
+    }
+
+    /* hero card */
+    .hero{
+      position:relative;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+      padding: 34px 28px;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(500px 240px at 15% 20%, rgba(109,94,249,.22), transparent 60%),
+        radial-gradient(500px 240px at 80% 25%, rgba(52,211,255,.16), transparent 60%);
+      pointer-events:none;
+    }
+    .hero-inner{position:relative}
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -0.8px;
+    }
+    .sub{
+      margin:0 0 18px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+      max-width: 70ch;
+    }
+
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      margin: 18px 0 6px;
+    }
+    .btn{
+      appearance:none;
+      border:0;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor:pointer;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn-primary{
+      color: #0A0E1B;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 12px 40px rgba(109,94,249,.24);
+    }
+    .btn-primary:hover{ transform: translateY(-1px); box-shadow: 0 18px 50px rgba(109,94,249,.32); }
+    .btn-secondary{
+      color: var(--text);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .btn-secondary:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); }
+
+    .tiny{
+      color: var(--muted2);
+      font-size: 12.5px;
+      margin-top: 10px;
+    }
+
+    /* 3-up highlights */
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card{
+      grid-column: span 12;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius2);
+      padding: 16px 16px;
+    }
+    @media (min-width: 860px){
+      .card{ grid-column: span 4; }
+    }
+    .kicker{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .badge{
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+      font-weight: 650;
+    }
+    .card p{
+      margin:0;
+      color: var(--muted);
+      line-height:1.55;
+      font-size:14px;
+    }
+
+    /* section */
+    .section{
+      margin-top: 18px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+    }
+    .section h2{
+      margin: 0 0 8px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+    .section ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .section li{ margin: 6px 0; }
+
+    /* footer */
+    .footer{
+      margin-top: 18px;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:12px;
+      color: var(--muted2);
+      font-size: 12.5px;
+    }
+    .footer a{
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(255,255,255,.25);
+    }
+    .footer a:hover{
+      color: var(--text);
+      border-bottom-color: rgba(255,255,255,.45);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="#">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="name">TraceGraph</div>
+      </a>
+      <div class="pill"><span class="dot"></span> Design Partner Program</div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Know when your production AI changes - and when runtime behavior deviates from approved decisions.</h1>
+        <p class="sub">
+          TraceGraph triangulates decision records, runtime behavior, and system changes to surface unapproved activity,
+          drift, and control gaps - near real time.
+        </p>
+
+        <div class="cta-row">
+          <a class="btn btn-primary"
+             href="https://docs.google.com/forms/d/e/1FAIpQLSdQoh_9KDQFLlCFkCAVYLEgg4aN0Jev6htUO9ZEpT3HC3zY2Q/viewform"
+             target="_blank" rel="noopener noreferrer">
+            Apply for Design Partner
+          </a>
+
+          <a class="btn btn-secondary" href="#triangulation">
+            How it works
+          </a>
+        </div>
+
+        <div class="tiny">Limited cohort • Enterprise organizations running AI in production</div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <div class="card">
+        <div class="kicker"><span class="badge">1</span> Decision</div>
+        <p>Capture what was approved - including ownership, rationale, and evidence.</p>
+      </div>
+      <div class="card">
+        <div class="kicker"><span class="badge">2</span> Reality</div>
+        <p>Observe what actually ran or changed in production via runtime behavior and telemetry.</p>
+      </div>
+      <div class="card">
+        <div class="kicker"><span class="badge">3</span> Deviation</div>
+        <p>Detect where behavior doesn’t map to a known decision — surfacing drift and governance gaps.</p>
+      </div>
+    </div>
+
+    <section class="section" id="triangulation">
+      <h2>Control triangulation</h2>
+      <p style="color:var(--muted); line-height:1.65; margin:0 0 10px;">
+        TraceGraph is designed to provide visibility into your actual decision surface — not just what’s documented.
+        By triangulating decision records with runtime behavior, we identify deviations as close to when they occur as possible.
+      </p>
+      <ul>
+        <li><strong>Decision:</strong> what was approved, by whom, and why</li>
+        <li><strong>Reality:</strong> what actually changed or ran in production (code, config, runtime, vendor enablement)</li>
+        <li><strong>Deviation:</strong> where behavior doesn’t align to an approved decision (ownership, evidence, or controls missing)</li>
+      </ul>
+      <p style="margin-top:12px; color: var(--muted2); font-size:13px; line-height:1.6;">
+        This turns governance from periodic documentation into operational risk telemetry.
+      </p>
+    </section>
+
+    <section class="section" id="learn">
+      <h2>How the design partner program works</h2>
+      <ul>
+        <li>30–45 minute discovery session to understand your AI environment and priorities</li>
+        <li>Feedback on workflows and high-value use cases</li>
+        <li>Optional early access to pilot capabilities in a limited environment</li>
+      </ul>
+
+      <h2 style="margin-top:18px;">What you receive</h2>
+      <ul>
+        <li>Early product access and private roadmap visibility</li>
+        <li>Direct influence on product direction</li>
+        <li>Founder-led onboarding and support</li>
+        <li>Optional early customer reference opportunity</li>
+      </ul>
+
+      <p style="margin-top:14px; color: var(--muted2); font-size:13px;">
+        Participation is limited and prioritized for organizations actively deploying AI in production.
+      </p>
+    </section>
+
+    <div class="footer">
+      <div>© <span id="y"></span> TraceGraph</div>
+      <div>Stealth design partner cohort</div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
